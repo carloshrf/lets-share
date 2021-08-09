@@ -42,7 +42,9 @@ class PostMap {
       formatedPost.reactions = formatedReactions;
     }
 
-    formatedPost.user = FormatePostFields.user(user);
+    if (user && user.id) {
+      formatedPost.user = FormatePostFields.user(user);
+    }
 
     return formatedPost;
   }

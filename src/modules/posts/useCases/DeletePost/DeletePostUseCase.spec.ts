@@ -1,19 +1,16 @@
 import { AppError } from '../../../../shared/errors/AppError';
 import UsersRepositoryInMemory from '../../../accounts/repositories/in-memory/UsersRepositoryInMemory';
 import PostsRepositoryInMemory from '../../repositories/in-memory/PostsRepositoryInMemory';
-import CreatePostUseCase from '../CreatePost/CreatePostUseCase';
 import DeletePostUseCase from './DeletePostUseCase';
 
 let postsRepositoryInMemory: PostsRepositoryInMemory;
-let usersRepositoryInMemory = new UsersRepositoryInMemory();
-let createPostUseCase: CreatePostUseCase;
+let usersRepositoryInMemory: UsersRepositoryInMemory;
 let deletePostUseCase: DeletePostUseCase;
 
 describe('Delete Post', () => {
   beforeAll(() => {
     postsRepositoryInMemory = new PostsRepositoryInMemory();
     usersRepositoryInMemory = new UsersRepositoryInMemory();
-    createPostUseCase = new CreatePostUseCase(postsRepositoryInMemory);
     deletePostUseCase = new DeletePostUseCase(
       usersRepositoryInMemory,
       postsRepositoryInMemory
@@ -35,7 +32,7 @@ describe('Delete Post', () => {
       user_id: user.id,
     };
 
-    const post = await createPostUseCase.execute(postData);
+    const post = await postsRepositoryInMemory.save(postData);
 
     await expect(
       deletePostUseCase.execute({
@@ -67,7 +64,7 @@ describe('Delete Post', () => {
       user_id: user2.id,
     };
 
-    const post = await createPostUseCase.execute(postData);
+    const post = await postsRepositoryInMemory.save(postData);
 
     await expect(
       deletePostUseCase.execute({
@@ -109,8 +106,8 @@ describe('Delete Post', () => {
       user_id: admin.id,
     };
 
-    const post1 = await createPostUseCase.execute(postData1);
-    const post2 = await createPostUseCase.execute(postData2);
+    const post1 = await postsRepositoryInMemory.save(postData1);
+    const post2 = await postsRepositoryInMemory.save(postData2);
 
     await expect(
       deletePostUseCase.execute({

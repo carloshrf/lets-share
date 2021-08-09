@@ -2,7 +2,7 @@ import ISaveCommentDTO from '../../dtos/ISaveCommentDTO';
 import Comment from '../../infra/typeorm/entities/Comment';
 import ICommentsRepository from '../ICommentsRepository';
 
-class CommnetsRepositoryInMemory implements ICommentsRepository {
+class CommentsRepositoryInMemory implements ICommentsRepository {
   private comments: Comment[] = [];
 
   async save({
@@ -51,4 +51,4 @@ class CommnetsRepositoryInMemory implements ICommentsRepository {
   }
 }
 
-export default CommnetsRepositoryInMemory;
+export default CommentsRepositoryInMemory;

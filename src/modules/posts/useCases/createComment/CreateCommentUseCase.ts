@@ -2,8 +2,8 @@ import { inject, injectable } from 'tsyringe';
 
 import { AppError } from '../../../../shared/errors/AppError';
 import Comment from '../../infra/typeorm/entities/Comment';
-import CommentsRepository from '../../infra/typeorm/repositories/CommentsRepository';
-import PostsRepository from '../../infra/typeorm/repositories/PostsRepository';
+import ICommentsRepository from '../../repositories/ICommentsRepository';
+import IPostsRepository from '../../repositories/IPostsRepository';
 
 interface IRequest {
   user_id: string;
@@ -16,9 +16,9 @@ interface IRequest {
 class CreateCommentUseCase {
   constructor(
     @inject('CommentsRepository')
-    private commentsRepository: CommentsRepository,
+    private commentsRepository: ICommentsRepository,
     @inject('PostsRepository')
-    private postsRepository: PostsRepository
+    private postsRepository: IPostsRepository
   ) {}
 
   async execute({

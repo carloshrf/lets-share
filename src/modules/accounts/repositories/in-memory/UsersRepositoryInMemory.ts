@@ -40,6 +40,12 @@ class UsersRepositoryInMemory implements IUsersRepository {
 
     return user;
   }
+
+  async isAdmin(id: string): Promise<boolean> {
+    const user = this.users.find((user) => user.id === id);
+
+    return user.isAdmin;
+  }
 }
 
 export default UsersRepositoryInMemory;
