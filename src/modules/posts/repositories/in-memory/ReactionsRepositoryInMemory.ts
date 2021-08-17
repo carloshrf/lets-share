@@ -37,6 +37,9 @@ class ReactionsRepositoryInMemory implements IReactionsRepository {
 
     this.reactions.splice(index, 1);
   }
+  async findAll(): Promise<Reaction[]> {
+    return this.reactions;
+  }
 }
 
 export default ReactionsRepositoryInMemory;

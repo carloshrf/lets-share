@@ -38,5 +38,9 @@ class ReactionsRepository implements IReactionsRepository {
   async delete(id: string): Promise<void> {
     await this.repository.delete(id);
   }
+
+  async findAll(): Promise<Reaction[]> {
+    return this.repository.find();
+  }
 }
 export default ReactionsRepository;

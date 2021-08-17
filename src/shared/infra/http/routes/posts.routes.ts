@@ -10,6 +10,7 @@ import DeleteCommentController from '../../../../modules/posts/useCases/deleteCo
 import DeletePostController from '../../../../modules/posts/useCases/deletePost/DeletePostController';
 import ListAllPostsController from '../../../../modules/posts/useCases/listAllPosts/ListAllPostsController';
 import ListPostsByUserController from '../../../../modules/posts/useCases/listPostsByUser/ListPostsByUserController';
+import ListReactionsController from '../../../../modules/posts/useCases/listReactions/ListReactionsController';
 import UpdatePostController from '../../../../modules/posts/useCases/updatePost/UpdatePostController';
 import UploadPostImagesController from '../../../../modules/posts/useCases/uploadPostImages/UploadPostImagesController';
 import { ensureAuthenticated } from '../middlewares';
@@ -26,6 +27,7 @@ const addPostReactionController = new AddPostReactionController();
 const createReactionController = new CreateReactionController();
 const createCommentController = new CreateCommentController();
 const deleteCommentController = new DeleteCommentController();
+const listReactionsController = new ListReactionsController();
 
 const upload = multer(uploadConfig);
 
@@ -41,14 +43,19 @@ postRouter.delete(
   ensureAuthenticated,
   deleteCommentController.handle
 );
+postRouter.get(
+  '/reactions',
+  ensureAuthenticated,
+  listReactionsController.handle
+);
 postRouter.post(
-  '/reaction/create/:name',
+  '/reactions/create/:name',
   ensureAuthenticated,
   upload.single('image'),
   createReactionController.handle
 );
 postRouter.post(
-  '/reaction/:id',
+  '/reactions/:id',
   ensureAuthenticated,
   addPostReactionController.handle
 );

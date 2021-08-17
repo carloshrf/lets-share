@@ -6,4 +6,5 @@ export default interface IReactionsRepository {
   findById(id: string): Promise<Reaction>;
   findByName(name: string): Promise<Reaction>;
   delete(id: string): Promise<void>;
+  findAll(): Promise<Reaction[]>;
 }
